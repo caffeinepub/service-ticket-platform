@@ -1,0 +1,89 @@
+{
+  "kind": "coverage_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-24T18:58:17.910Z",
+  "sources": {
+    "buildRequest": true,
+    "implementationPlan": true
+  },
+  "requirements": {
+    "total": 4,
+    "implemented": 3,
+    "items": [
+      {
+        "id": "REQ-6",
+        "summary": "In the backend Ticket data model, rename the 'category' field to 'moduleName' (type: Text). Update all backend functions that reference 'category' — including createTicket, getAllTickets, getTicketsByCustomer, and any filter/query logic — to use 'moduleName' instead.",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-7",
+        "summary": "In the 'Raise Ticket' form (RaiseTicket.tsx), replace the 'Category' dropdown with a 'Module Name' dropdown. The dropdown options must be exactly: SCM, FINANCE-AP, FINANCE-AR, FINANCE-FA, FINANCE-GL, PROCUREMENT, REPORT ISSUE, NEW REPORT REQUEST. Update all references to 'category' in the form state, submission payload, and display labels to use 'moduleName'.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/RaiseTicket.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/RaiseTicket.tsx"
+        ]
+      },
+      {
+        "id": "REQ-8",
+        "summary": "Update all components that display ticket details — including TicketCard.tsx, TicketDetail.tsx, TicketFilters.tsx, and ProviderDashboard.tsx — to display 'Module Name' instead of 'Category', reading from the 'moduleName' field. Update the filter dropdown in TicketFilters to list Module Name options instead of category options.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/TicketCard.tsx",
+          "frontend/src/pages/TicketDetail.tsx",
+          "frontend/src/components/TicketFilters.tsx",
+          "frontend/src/pages/ProviderDashboard.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/components/TicketCard.tsx",
+          "frontend/src/pages/TicketDetail.tsx",
+          "frontend/src/components/TicketFilters.tsx",
+          "frontend/src/pages/ProviderDashboard.tsx"
+        ]
+      },
+      {
+        "id": "REQ-9",
+        "summary": "Add a single file attachment input to the 'Raise Ticket' form (RaiseTicket.tsx) for customer users. The attachment should accept common file types (PDF, images, Word documents). The selected file should be read as a base64-encoded Blob and stored as an optional attachment field on the ticket. Update the backend Ticket record to include an optional 'attachment' field (type: ?Blob or ?Text for base64) and update createTicket to accept and persist this optional attachment.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/RaiseTicket.tsx",
+          "frontend/src/pages/TicketDetail.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/RaiseTicket.tsx",
+          "frontend/src/pages/TicketDetail.tsx"
+        ]
+      }
+    ]
+  },
+  "changedFiles": [
+    "backend/blob-storage/Mixin.mo",
+    "backend/blob-storage/Storage.mo",
+    "backend/main.mo",
+    "backend/migration.mo",
+    "build-request.json",
+    "build-template/README.md",
+    "caffeine.lock.json",
+    "feature_evidence.json",
+    "frontend-file-summaries.txt",
+    "frontend-implementation-plan.json",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/TicketCard.tsx",
+    "frontend/src/components/TicketFilters.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/ProviderDashboard.tsx",
+    "frontend/src/pages/RaiseTicket.tsx",
+    "frontend/src/pages/TicketDetail.tsx",
+    "project_state.json",
+    "scratch/component-selection.json",
+    "spec.md",
+    "spec_vs_diff_report.json"
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "kind": "build_request",
+  "title": "Replace Category with Module Name dropdown and add file attachment for customers",
+  "projectName": "SupportDesk",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-6",
+      "text": "In the backend Ticket data model, rename the 'category' field to 'moduleName' (type: Text). Update all backend functions that reference 'category' — including createTicket, getAllTickets, getTicketsByCustomer, and any filter/query logic — to use 'moduleName' instead.",
+      "target": "backend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Replace Category with Module Name and Drop Down Options attached"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Ticket record type has a 'moduleName' field instead of 'category'.",
+        "createTicket accepts 'moduleName' as a parameter.",
+        "getAllTickets and getTicketsByCustomer return 'moduleName' in each ticket record.",
+        "No references to 'category' remain in the backend actor for the Ticket entity."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "In the 'Raise Ticket' form (RaiseTicket.tsx), replace the 'Category' dropdown with a 'Module Name' dropdown. The dropdown options must be exactly: SCM, FINANCE-AP, FINANCE-AR, FINANCE-FA, FINANCE-GL, PROCUREMENT, REPORT ISSUE, NEW REPORT REQUEST. Update all references to 'category' in the form state, submission payload, and display labels to use 'moduleName'.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Replace Category with Module Name and Drop Down Options attached"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The form field labelled 'Category' is replaced with a field labelled 'Module Name'.",
+        "The dropdown contains exactly these 8 options: SCM, FINANCE-AP, FINANCE-AR, FINANCE-FA, FINANCE-GL, PROCUREMENT, REPORT ISSUE, NEW REPORT REQUEST.",
+        "Selecting a module name and submitting the form sends 'moduleName' (not 'category') to the backend.",
+        "The field is required and validated before submission."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Update all components that display ticket details — including TicketCard.tsx, TicketDetail.tsx, TicketFilters.tsx, and ProviderDashboard.tsx — to display 'Module Name' instead of 'Category', reading from the 'moduleName' field. Update the filter dropdown in TicketFilters to list Module Name options instead of category options.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Replace Category with Module Name and Drop Down Options attached"
+        ]
+      },
+      "acceptanceCriteria": [
+        "TicketCard shows 'Module Name' label with the moduleName value.",
+        "TicketDetail shows 'Module Name' instead of 'Category' in the ticket metadata section.",
+        "TicketFilters filter dropdown is labelled 'Module Name' and lists the 8 module options.",
+        "ProviderDashboard filter by module name works correctly."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Add a single file attachment input to the 'Raise Ticket' form (RaiseTicket.tsx) for customer users. The attachment should accept common file types (PDF, images, Word documents). The selected file should be read as a base64-encoded Blob and stored as an optional attachment field on the ticket. Update the backend Ticket record to include an optional 'attachment' field (type: ?Blob or ?Text for base64) and update createTicket to accept and persist this optional attachment.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "provide one Attachment options for customer user"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Raise Ticket form shows a single file upload input labelled 'Attachment (optional)'.",
+        "Accepted file types include PDF, PNG, JPG, and DOCX.",
+        "A file name preview is shown after a file is selected, with an option to remove it.",
+        "The attachment is encoded and submitted with the ticket creation payload.",
+        "The backend Ticket record includes an optional attachment field and createTicket persists it.",
+        "TicketDetail page displays a download/view link for the attachment if one exists.",
+        "The attachment field is optional — ticket submission works without attaching a file."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify files listed under frontend.immutablePaths.",
+    "All Motoko changes must remain within the single main actor in backend/main.mo.",
+    "The 8 Module Name dropdown options must match exactly what is shown in the uploaded image: SCM, FINANCE-AP, FINANCE-AR, FINANCE-FA, FINANCE-GL, PROCUREMENT, REPORT ISSUE, NEW REPORT REQUEST."
+  ],
+  "nonGoals": [
+    "Do not add multiple file attachments — only one attachment per ticket.",
+    "Do not add attachment capability to the provider dashboard (view only in ticket detail).",
+    "Do not change any other ticket fields (title, description, priority, status).",
+    "Do not change the authentication or user registration flow."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "A service ticket raising platform where customers can raise queries/tickets and service providers can view and resolve them.",
+  "architectural_notes": [
+    "Two user roles: Customer (raises tickets) and Service Provider (resolves tickets)",
+    "Core entity: Ticket with fields like title, description, status, priority, timestamps"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-implement-a-customer-facing-interface-with-a-registration-login-page-name-email-role-selection-a-raise-ticket-form-title-description-category-dropdown-priority-selector-a-my-tickets-list-view-showing-ticket-status-with-color-coded-badges-and-a-ticket-detail-page-showing-full-description-status-history-and-the-ability-to-add-follow-up-comments",
+      "title": "Implement a customer-facing interface with: a registration/login page (name, email, role selection), a 'Raise Ticket' form (title, description, category dropdown, priority selector), a 'My Tickets' list view showing ticket status with color-coded badges, and a ticket detail page showing full description, status history, and the ability to add follow-up comments.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-service-provider-dashboard-interface-with-a-login-page-role-provider-an-all-tickets-list-with-filters-by-status-priority-and-category-a-ticket-detail-view-where-the-provider-can-update-the-ticket-status-open-in-progress-resolved-closed-and-add-resolution-comments-and-a-summary-statistics-bar-showing-counts-by-status",
+      "title": "Implement a service provider dashboard interface with: a login page (role: provider), an 'All Tickets' list with filters by status, priority, and category, a ticket detail view where the provider can update the ticket status (open → in_progress → resolved → closed) and add resolution comments, and a summary statistics bar showing counts by status.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-clean-professional-visual-theme-across-the-entire-application-use-a-neutral-white-light-gray-base-with-teal-emerald-as-the-primary-accent-color-clear-typographic-hierarchy-card-based-ticket-layouts-with-subtle-shadows-and-a-responsive-sidebar-navigation-that-switches-context-between-customer-and-provider-views",
+      "title": "Apply a clean, professional visual theme across the entire application. Use a neutral white/light-gray base with teal/emerald as the primary accent color, clear typographic hierarchy, card-based ticket layouts with subtle shadows, and a responsive sidebar navigation that switches context between customer and provider views.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-and-render-a-custom-logo-banner-image-for-the-supportdesk-app-header-supportdesk-logo-dim-200x60-png-as-a-static-asset-in-frontend-public-assets-generated",
+      "title": "Generate and render a custom logo/banner image for the SupportDesk app header (supportdesk-logo.dim_200x60.png) as a static asset in frontend/public/assets/generated.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-the-raise-ticket-form-raiseticket-tsx-replace-the-category-dropdown-with-a-module-name-dropdown-the-dropdown-options-must-be-exactly-scm-finance-ap-finance-ar-finance-fa-finance-gl-procurement-report-issue-new-report-request-update-all-references-to-category-in-the-form-state-submission-payload-and-display-labels-to-use-modulename",
+      "title": "In the 'Raise Ticket' form (RaiseTicket.tsx), replace the 'Category' dropdown with a 'Module Name' dropdown. The dropdown options must be exactly: SCM, FINANCE-AP, FINANCE-AR, FINANCE-FA, FINANCE-GL, PROCUREMENT, REPORT ISSUE, NEW REPORT REQUEST. Update all references to 'category' in the form state, submission payload, and display labels to use 'moduleName'.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-all-components-that-display-ticket-details-including-ticketcard-tsx-ticketdetail-tsx-ticketfilters-tsx-and-providerdashboard-tsx-to-display-module-name-instead-of-category-reading-from-the-modulename-field-update-the-filter-dropdown-in-ticketfilters-to-list-module-name-options-instead-of-category-options",
+      "title": "Update all components that display ticket details — including TicketCard.tsx, TicketDetail.tsx, TicketFilters.tsx, and ProviderDashboard.tsx — to display 'Module Name' instead of 'Category', reading from the 'moduleName' field. Update the filter dropdown in TicketFilters to list Module Name options instead of category options.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-single-file-attachment-input-to-the-raise-ticket-form-raiseticket-tsx-for-customer-users-the-attachment-should-accept-common-file-types-pdf-images-word-documents-the-selected-file-should-be-read-as-a-base64-encoded-blob-and-stored-as-an-optional-attachment-field-on-the-ticket-update-the-backend-ticket-record-to-include-an-optional-attachment-field-type-blob-or-text-for-base64-and-update-createticket-to-accept-and-persist-this-optional-attachment",
+      "title": "Add a single file attachment input to the 'Raise Ticket' form (RaiseTicket.tsx) for customer users. The attachment should accept common file types (PDF, images, Word documents). The selected file should be read as a base64-encoded Blob and stored as an optional attachment field on the ticket. Update the backend Ticket record to include an optional 'attachment' field (type: ?Blob or ?Text for base64) and update createTicket to accept and persist this optional attachment.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Customer user registration and login",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Customer can raise a support ticket with query details",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Service provider dashboard to view all submitted tickets",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Service provider can resolve/update ticket status",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Customer can view status of their submitted tickets",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Create a backend data model and actor with the following entities: User (id, name, email, role: 'customer' | 'provider', createdAt), Ticket (id, customerId, title, description, category, priority: 'low' | 'medium' | 'high', status: 'open' | 'in_progress' | 'resolved' | 'closed', createdAt, updatedAt), and TicketComment (id, ticketId, authorId, message, createdAt). Implement CRUD operations: createUser, getUser, createTicket, getTicketsByCustomer, getAllTickets, updateTicketStatus, addComment, getCommentsByTicket.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Replace 'Category' field with 'Module Name' dropdown with custom options in the ticket raise form",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add a single file attachment option for customers when raising a support ticket",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "In the backend Ticket data model, rename the 'category' field to 'moduleName' (type: Text). Update all backend functions that reference 'category' — including createTicket, getAllTickets, getTicketsByCustomer, and any filter/query logic — to use 'moduleName' instead.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Service Ticket Platform",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

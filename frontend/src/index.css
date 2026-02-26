@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.5rem;
+
+        /* Teal/Emerald primary palette */
+        --background: 0.98 0.005 200;
+        --foreground: 0.18 0.02 240;
+
+        --card: 1 0 0;
+        --card-foreground: 0.18 0.02 240;
+
+        --popover: 1 0 0;
+        --popover-foreground: 0.18 0.02 240;
+
+        /* Teal primary */
+        --primary: 0.52 0.14 185;
+        --primary-foreground: 0.99 0 0;
+
+        --secondary: 0.94 0.02 195;
+        --secondary-foreground: 0.3 0.06 200;
+
+        --muted: 0.95 0.01 200;
+        --muted-foreground: 0.5 0.03 220;
+
+        --accent: 0.92 0.04 185;
+        --accent-foreground: 0.3 0.08 185;
+
+        --destructive: 0.577 0.245 27.325;
+        --destructive-foreground: 0.985 0 0;
+
+        --border: 0.88 0.02 200;
+        --input: 0.88 0.02 200;
+        --ring: 0.52 0.14 185;
+
+        /* Status colors */
+        --status-open: 0.82 0.16 85;
+        --status-open-bg: 0.97 0.06 85;
+        --status-in-progress: 0.55 0.18 240;
+        --status-in-progress-bg: 0.94 0.06 240;
+        --status-resolved: 0.55 0.15 155;
+        --status-resolved-bg: 0.94 0.06 155;
+        --status-closed: 0.55 0.01 240;
+        --status-closed-bg: 0.93 0.01 240;
+
+        /* Priority colors */
+        --priority-low: 0.55 0.15 155;
+        --priority-medium: 0.65 0.18 60;
+        --priority-high: 0.577 0.245 27.325;
+
+        --chart-1: 0.52 0.14 185;
+        --chart-2: 0.55 0.18 240;
+        --chart-3: 0.55 0.15 155;
+        --chart-4: 0.82 0.16 85;
+        --chart-5: 0.577 0.245 27.325;
+
+        --sidebar: 0.16 0.03 220;
+        --sidebar-foreground: 0.92 0.02 200;
+        --sidebar-primary: 0.52 0.14 185;
+        --sidebar-primary-foreground: 0.99 0 0;
+        --sidebar-accent: 0.22 0.04 220;
+        --sidebar-accent-foreground: 0.92 0.02 200;
+        --sidebar-border: 0.25 0.03 220;
+        --sidebar-ring: 0.52 0.14 185;
+    }
+
+    .dark {
+        --background: 0.12 0.02 220;
+        --foreground: 0.95 0.01 200;
+
+        --card: 0.16 0.02 220;
+        --card-foreground: 0.95 0.01 200;
+
+        --popover: 0.18 0.02 220;
+        --popover-foreground: 0.95 0.01 200;
+
+        --primary: 0.6 0.14 185;
+        --primary-foreground: 0.1 0.02 220;
+
+        --secondary: 0.22 0.03 220;
+        --secondary-foreground: 0.85 0.02 200;
+
+        --muted: 0.22 0.02 220;
+        --muted-foreground: 0.6 0.03 220;
+
+        --accent: 0.25 0.05 185;
+        --accent-foreground: 0.85 0.04 185;
+
+        --destructive: 0.704 0.191 22.216;
+        --destructive-foreground: 0.985 0 0;
+
+        --border: 0.25 0.02 220;
+        --input: 0.25 0.02 220;
+        --ring: 0.6 0.14 185;
+
+        --sidebar: 0.1 0.02 220;
+        --sidebar-foreground: 0.88 0.02 200;
+        --sidebar-primary: 0.6 0.14 185;
+        --sidebar-primary-foreground: 0.1 0.02 220;
+        --sidebar-accent: 0.18 0.03 220;
+        --sidebar-accent-foreground: 0.88 0.02 200;
+        --sidebar-border: 0.22 0.02 220;
+        --sidebar-ring: 0.6 0.14 185;
+    }
+
+    * {
+        @apply border-border;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Inter', sans-serif;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+}
+
+@layer utilities {
+    .status-open {
+        background-color: oklch(var(--status-open-bg));
+        color: oklch(var(--status-open));
+    }
+    .status-in-progress {
+        background-color: oklch(var(--status-in-progress-bg));
+        color: oklch(var(--status-in-progress));
+    }
+    .status-resolved {
+        background-color: oklch(var(--status-resolved-bg));
+        color: oklch(var(--status-resolved));
+    }
+    .status-closed {
+        background-color: oklch(var(--status-closed-bg));
+        color: oklch(var(--status-closed));
+    }
+    .priority-low {
+        color: oklch(var(--priority-low));
+    }
+    .priority-medium {
+        color: oklch(var(--priority-medium));
+    }
+    .priority-high {
+        color: oklch(var(--priority-high));
+    }
+}

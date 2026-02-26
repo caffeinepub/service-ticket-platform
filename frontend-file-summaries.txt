@@ -1,0 +1,18 @@
+{
+  "frontend/src/index.css": "Global styles with teal/emerald OKLCH color system, custom status/priority utility classes, and Google Fonts import for Inter and Plus Jakarta Sans.",
+  "frontend/tailwind.config.js": "Extended Tailwind config with custom font families (Inter, Plus Jakarta Sans), card shadow utilities, fade-in animation, and additional border radius tokens.",
+  "frontend/src/contexts/AuthContext.tsx": "React context providing user authentication state (name, email, role) stored in sessionStorage, with login and logout functions.",
+  "frontend/src/hooks/useQueries.ts": "All React Query hooks for backend operations; updated `useCreateTicket` to accept `moduleName` (replacing `category`) and an optional `ExternalBlob` attachment, passing both to the backend `createTicket` call.",
+  "frontend/src/components/StatusBadge.tsx": "Color-coded status badge component mapping open/in_progress/resolved/closed to yellow/blue/green/gray styles.",
+  "frontend/src/components/PriorityBadge.tsx": "Priority badge component with directional arrow icons and color coding for low/medium/high priorities.",
+  "frontend/src/components/TicketCard.tsx": "Reusable ticket card displaying status/priority badges, title, description preview, module name (replacing category), date, and ticket ID with hover animation.",
+  "frontend/src/components/SummaryStats.tsx": "Dashboard statistics grid showing ticket counts by status with color-coded cards and icons.",
+  "frontend/src/components/TicketFilters.tsx": "Filter controls with dropdowns for status, priority, and Module Name (8 fixed options); updated `FilterState` interface to use `moduleName` instead of `category`; removed the dynamic `categories` prop.",
+  "frontend/src/components/Layout.tsx": "Responsive layout with dark sidebar navigation, role-based nav items (customer vs provider), user info, logout, and footer with attribution.",
+  "frontend/src/pages/LoginPage.tsx": "Login/registration page with tabbed interface for customer and provider roles, form validation, and logo display.",
+  "frontend/src/pages/RaiseTicket.tsx": "Ticket creation form with title, description, Module Name dropdown (8 options: SCM, FINANCE-AP, FINANCE-AR, FINANCE-FA, FINANCE-GL, PROCUREMENT, REPORT ISSUE, NEW REPORT REQUEST), priority, and an optional single-file attachment input (PDF/PNG/JPG/DOCX) with file name preview, remove button, and upload progress indicator.",
+  "frontend/src/pages/MyTickets.tsx": "Customer ticket list page showing sorted tickets with loading skeletons, empty state, and navigation to ticket detail.",
+  "frontend/src/pages/TicketDetail.tsx": "Full ticket detail view showing module name (replacing category) in the sidebar metadata, a conditional attachment download/view link when an attachment exists, comments thread, add comment form, and provider-only status update buttons.",
+  "frontend/src/pages/ProviderDashboard.tsx": "Provider dashboard with summary stats, Module Name filter (using `moduleName` field), and full ticket list with client-side filtering by status, priority, and module name.",
+  "frontend/src/App.tsx": "Root app component with AuthProvider, page-based navigation state machine, and role-based routing between customer and provider views."
+}

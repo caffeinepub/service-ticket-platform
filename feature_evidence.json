@@ -1,0 +1,66 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-in-the-raise-ticket-form-raiseticket-tsx-replace-the-category-dropdown-with-a-module-name-dropdown-the-dropdown-options-must-be-exactly-scm-finance-ap-finance-ar-finance-fa-finance-gl-procurement-report-issue-new-report-request-update-all-references-to-category-in-the-form-state-submission-payload-and-display-labels-to-use-modulename",
+      "featureTitle": "In the 'Raise Ticket' form (RaiseTicket.tsx), replace the 'Category' dropdown with a 'Module Name' dropdown. The dropdown options must be exactly: SCM, FINANCE-AP, FINANCE-AR, FINANCE-FA, FINANCE-GL, PROCUREMENT, REPORT ISSUE, NEW REPORT REQUEST. Update all references to 'category' in the form state, submission payload, and display labels to use 'moduleName'.",
+      "files": [
+        "frontend/src/pages/RaiseTicket.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-7"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-all-components-that-display-ticket-details-including-ticketcard-tsx-ticketdetail-tsx-ticketfilters-tsx-and-providerdashboard-tsx-to-display-module-name-instead-of-category-reading-from-the-modulename-field-update-the-filter-dropdown-in-ticketfilters-to-list-module-name-options-instead-of-category-options",
+      "featureTitle": "Update all components that display ticket details — including TicketCard.tsx, TicketDetail.tsx, TicketFilters.tsx, and ProviderDashboard.tsx — to display 'Module Name' instead of 'Category', reading from the 'moduleName' field. Update the filter dropdown in TicketFilters to list Module Name options instead of category options.",
+      "files": [
+        "frontend/src/components/TicketCard.tsx",
+        "frontend/src/components/TicketFilters.tsx",
+        "frontend/src/pages/ProviderDashboard.tsx",
+        "frontend/src/pages/TicketDetail.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-8"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-add-a-single-file-attachment-input-to-the-raise-ticket-form-raiseticket-tsx-for-customer-users-the-attachment-should-accept-common-file-types-pdf-images-word-documents-the-selected-file-should-be-read-as-a-base64-encoded-blob-and-stored-as-an-optional-attachment-field-on-the-ticket-update-the-backend-ticket-record-to-include-an-optional-attachment-field-type-blob-or-text-for-base64-and-update-createticket-to-accept-and-persist-this-optional-attachment",
+      "featureTitle": "Add a single file attachment input to the 'Raise Ticket' form (RaiseTicket.tsx) for customer users. The attachment should accept common file types (PDF, images, Word documents). The selected file should be read as a base64-encoded Blob and stored as an optional attachment field on the ticket. Update the backend Ticket record to include an optional 'attachment' field (type: ?Blob or ?Text for base64) and update createTicket to accept and persist this optional attachment.",
+      "files": [
+        "frontend/src/pages/RaiseTicket.tsx",
+        "frontend/src/pages/TicketDetail.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-9"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

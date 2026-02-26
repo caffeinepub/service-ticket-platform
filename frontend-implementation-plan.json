@@ -1,0 +1,81 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Replace Category with Module Name dropdown and add file attachment for customers",
+  "requirements": [
+    {
+      "id": "REQ-7",
+      "summary": "Replace Category dropdown with Module Name dropdown in the Raise Ticket form with 8 specific options",
+      "acceptanceCriteria": [
+        "The form field labelled 'Category' is replaced with a field labelled 'Module Name'.",
+        "The dropdown contains exactly these 8 options: SCM, FINANCE-AP, FINANCE-AR, FINANCE-FA, FINANCE-GL, PROCUREMENT, REPORT ISSUE, NEW REPORT REQUEST.",
+        "Selecting a module name and submitting the form sends 'moduleName' (not 'category') to the backend.",
+        "The field is required and validated before submission."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/RaiseTicket.tsx",
+          "operation": "modify",
+          "description": "Replace the 'Category' dropdown with a 'Module Name' dropdown containing exactly these 8 options: SCM, FINANCE-AP, FINANCE-AR, FINANCE-FA, FINANCE-GL, PROCUREMENT, REPORT ISSUE, NEW REPORT REQUEST. Update form state from 'category' to 'moduleName', update the field label to 'Module Name', and ensure the submission payload sends 'moduleName' to the createTicket backend function. Maintain required field validation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Update all ticket display components to show Module Name instead of Category",
+      "acceptanceCriteria": [
+        "TicketCard shows 'Module Name' label with the moduleName value.",
+        "TicketDetail shows 'Module Name' instead of 'Category' in the ticket metadata section.",
+        "TicketFilters filter dropdown is labelled 'Module Name' and lists the 8 module options.",
+        "ProviderDashboard filter by module name works correctly."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/TicketCard.tsx",
+          "operation": "modify",
+          "description": "Update the component to display 'Module Name' label instead of 'Category' and read from the ticket.moduleName field instead of ticket.category."
+        },
+        {
+          "path": "frontend/src/pages/TicketDetail.tsx",
+          "operation": "modify",
+          "description": "Update the ticket metadata section to display 'Module Name' label instead of 'Category' and read from ticket.moduleName field instead of ticket.category."
+        },
+        {
+          "path": "frontend/src/components/TicketFilters.tsx",
+          "operation": "modify",
+          "description": "Replace the 'Category' filter dropdown with a 'Module Name' filter dropdown. Update the label to 'Module Name' and populate the dropdown with exactly these 8 options: SCM, FINANCE-AP, FINANCE-AR, FINANCE-FA, FINANCE-GL, PROCUREMENT, REPORT ISSUE, NEW REPORT REQUEST. Update filter state and comparison logic to use 'moduleName' instead of 'category'."
+        },
+        {
+          "path": "frontend/src/pages/ProviderDashboard.tsx",
+          "operation": "modify",
+          "description": "Ensure the filter logic correctly references ticket.moduleName instead of ticket.category when applying filters from TicketFilters component."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Add single file attachment input to Raise Ticket form for customers with base64 encoding and backend persistence",
+      "acceptanceCriteria": [
+        "The Raise Ticket form shows a single file upload input labelled 'Attachment (optional)'.",
+        "Accepted file types include PDF, PNG, JPG, and DOCX.",
+        "A file name preview is shown after a file is selected, with an option to remove it.",
+        "The attachment is encoded and submitted with the ticket creation payload.",
+        "The backend Ticket record includes an optional attachment field and createTicket persists it.",
+        "TicketDetail page displays a download/view link for the attachment if one exists.",
+        "The attachment field is optional — ticket submission works without attaching a file."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/RaiseTicket.tsx",
+          "operation": "modify",
+          "description": "Add a file input field labelled 'Attachment (optional)' accepting PDF, PNG, JPG, and DOCX files. Use the blob-storage component's ExternalBlob.fromBytes() to handle file upload. Add state to track the selected file and display its name with a remove button. When submitting the form, pass the ExternalBlob to createTicket as the attachment parameter (or null if no file selected). Verify the component's usage instructions before implementing. Use ExternalBlob.withUploadProgress() to show upload progress feedback during submission."
+        },
+        {
+          "path": "frontend/src/pages/TicketDetail.tsx",
+          "operation": "modify",
+          "description": "Add a conditional section in the ticket metadata area to display attachment information when ticket.attachment exists. Use the blob-storage component's ExternalBlob.getDirectURL() method to provide a download/view link for the attachment. Display the link with appropriate styling and a download icon. Verify the component's usage instructions before implementing."
+        }
+      ]
+    }
+  ]
+}
