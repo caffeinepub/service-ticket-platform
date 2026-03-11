@@ -5,6 +5,11 @@ import React, {
   useCallback,
   type ReactNode,
 } from "react";
+import {
+  ALL_PERMISSIONS,
+  type UserPermissions,
+  migratePermissions,
+} from "../utils/credentialStore";
 
 export type UserRoleType = "master" | "customer";
 
@@ -13,6 +18,8 @@ export interface AuthUser {
   name: string;
   email: string;
   role: UserRoleType;
+  accountType: "customer" | "master";
+  permissions: UserPermissions;
 }
 
 interface AuthContextType {
@@ -28,7 +35,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(() => {
     try {
       const stored = sessionStorage.getItem("auth_user");
-      return stored ? (JSON.parse(stored) as AuthUser) : null;
+      if (!stored) return null;
+      const parsed = JSON.parse(stored) as any;
+      const accountType =
+        parsed.accountType ??
+        (parsed.role === "master" ? "master" : "customer");
+      return {
+        ...parsed,
+        accountType,
+        permissions:
+          accountType === "master"
+            ? ALL_PERMISSIONS
+            : migratePermissions(parsed.permissions),
+      } as AuthUser;
     } catch {
       return null;
     }

@@ -7,6 +7,7 @@ import {
   Menu,
   PlusCircle,
   Shield,
+  ShieldCheck,
   TicketIcon,
   User,
   Users,
@@ -46,12 +47,18 @@ export function Layout({ children, currentPage, onNavigate }: LayoutProps) {
     },
     {
       id: "manage-customers",
-      label: "Manage Customers",
+      label: "Manage Accounts",
       icon: <Users className="w-4 h-4" />,
+    },
+    {
+      id: "manage-roles",
+      label: "Manage Roles",
+      icon: <ShieldCheck className="w-4 h-4" />,
     },
   ];
 
-  const navItems = user?.role === "customer" ? customerNav : masterNav;
+  const isMasterUser = user?.accountType === "master";
+  const navItems = !isMasterUser ? customerNav : masterNav;
 
   const SidebarContent = () => (
     <div className="flex flex-col h-full">
@@ -68,13 +75,13 @@ export function Layout({ children, currentPage, onNavigate }: LayoutProps) {
       <div className="px-4 py-3">
         <span
           className={`text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5 w-fit ${
-            user?.role === "customer"
+            !isMasterUser
               ? "bg-sidebar-accent text-sidebar-accent-foreground"
               : "bg-primary/20 text-primary"
           }`}
         >
-          {user?.role === "master" && <Shield className="w-3 h-3" />}
-          {user?.role === "customer" ? "Customer" : "Master Admin"}
+          {isMasterUser && <Shield className="w-3 h-3" />}
+          {!isMasterUser ? "Customer" : "Master Admin"}
         </span>
       </div>
 

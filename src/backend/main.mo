@@ -144,6 +144,42 @@ actor {
     };
   };
 
+  public shared ({ caller }) func updateTicket(
+    ticketId : Text,
+    title : Text,
+    description : Text,
+    moduleName : Text,
+    priority : TicketPriority,
+  ) : async () {
+    switch (tickets.get(ticketId)) {
+      case (null) { Runtime.trap("Ticket does not exist") };
+      case (?ticket) {
+        let updatedTicket : Ticket = {
+          id = ticket.id;
+          customerId = ticket.customerId;
+          title;
+          description;
+          moduleName;
+          priority;
+          status = ticket.status;
+          createdAt = ticket.createdAt;
+          updatedAt = Time.now();
+          attachment = ticket.attachment;
+        };
+        tickets.add(ticketId, updatedTicket);
+      };
+    };
+  };
+
+  public shared ({ caller }) func deleteTicket(ticketId : Text) : async () {
+    switch (tickets.get(ticketId)) {
+      case (null) { Runtime.trap("Ticket does not exist") };
+      case (?_) {
+        tickets.remove(ticketId);
+      };
+    };
+  };
+
   public shared ({ caller }) func addComment(ticketId : Text, message : Text) : async () {
     let newCommentId = nextCommentId.toText();
     nextCommentId += 1;

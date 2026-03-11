@@ -60,9 +60,11 @@ export interface backendInterface {
     addComment(ticketId: string, message: string): Promise<void>;
     createTicket(title: string, description: string, moduleName: string, priority: TicketPriority, attachment: ExternalBlob | null): Promise<string>;
     createUser(name: string, email: string, role: UserRole): Promise<void>;
+    deleteTicket(ticketId: string): Promise<void>;
     getAllTickets(): Promise<Array<Ticket>>;
     getCommentsByTicket(ticketId: string): Promise<Array<TicketComment>>;
     getTicketsByCustomer(): Promise<Array<Ticket>>;
     getUser(userId: Principal): Promise<User>;
+    updateTicket(ticketId: string, title: string, description: string, moduleName: string, priority: TicketPriority): Promise<void>;
     updateTicketStatus(ticketId: string, newStatus: TicketStatus): Promise<void>;
 }

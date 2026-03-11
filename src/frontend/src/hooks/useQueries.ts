@@ -1,11 +1,28 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import type { ExternalBlob, TicketPriority, TicketStatus } from "../backend";
+import type {
+  ExternalBlob,
+  TicketPriority,
+  TicketStatus,
+  backendInterface,
+} from "../backend";
 import { useAuth } from "../contexts/AuthContext";
 import {
   getTicketsByOwner,
   registerTicketOwner,
 } from "../utils/credentialStore";
 import { useActor } from "./useActor";
+
+// Extended interface that adds new backend methods not yet in auto-generated backend.ts
+interface ExtendedBackend extends backendInterface {
+  deleteTicket(ticketId: string): Promise<void>;
+  updateTicket(
+    ticketId: string,
+    title: string,
+    description: string,
+    moduleName: string,
+    priority: TicketPriority,
+  ): Promise<void>;
+}
 
 // ── Tickets ────────────────────────────────────────────────────────────────
 
@@ -17,7 +34,6 @@ export function useMyTickets() {
     queryKey: ["my-tickets", user?.loginId],
     queryFn: async () => {
       if (!actor) return [];
-      // Fetch all tickets then filter to only those owned by the current user
       const allTickets = await actor.getAllTickets();
       const ownedIds = user?.loginId ? getTicketsByOwner(user.loginId) : [];
       return allTickets.filter((t) => ownedIds.includes(t.id));
@@ -66,7 +82,6 @@ export function useCreateTicket() {
         priority,
         attachment,
       );
-      // Register ticket ownership in localStorage
       if (user?.loginId) {
         registerTicketOwner(ticketId, user.loginId);
       }
@@ -90,6 +105,56 @@ export function useUpdateTicketStatus() {
     }: { ticketId: string; status: TicketStatus }) => {
       if (!actor) throw new Error("Actor not ready");
       return actor.updateTicketStatus(ticketId, status);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["all-tickets"] });
+      queryClient.invalidateQueries({ queryKey: ["my-tickets"] });
+    },
+  });
+}
+
+export function useDeleteTicket() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (ticketId: string) => {
+      if (!actor) throw new Error("Actor not ready");
+      return (actor as ExtendedBackend).deleteTicket(ticketId);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["all-tickets"] });
+      queryClient.invalidateQueries({ queryKey: ["my-tickets"] });
+    },
+  });
+}
+
+export function useUpdateTicket() {
+  const { actor } = useActor();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      ticketId,
+      title,
+      description,
+      moduleName,
+      priority,
+    }: {
+      ticketId: string;
+      title: string;
+      description: string;
+      moduleName: string;
+      priority: TicketPriority;
+    }) => {
+      if (!actor) throw new Error("Actor not ready");
+      return (actor as ExtendedBackend).updateTicket(
+        ticketId,
+        title,
+        description,
+        moduleName,
+        priority,
+      );
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["all-tickets"] });

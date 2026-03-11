@@ -4,12 +4,13 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { useAllTickets, useMyTickets } from "./hooks/useQueries";
 import { LoginPage } from "./pages/LoginPage";
 import { ManageCustomers } from "./pages/ManageCustomers";
+import { ManageRoles } from "./pages/ManageRoles";
 import { MyTickets } from "./pages/MyTickets";
 import { ProviderDashboard } from "./pages/ProviderDashboard";
 import { RaiseTicket } from "./pages/RaiseTicket";
 import { TicketDetail } from "./pages/TicketDetail";
 
-// ── Ticket Detail Wrappers ─────────────────────────────────────────────────
+// ── Ticket Detail Wrappers ───────────────────────────────────────────────────
 
 function CustomerTicketDetailWrapper({
   ticketId,
@@ -18,8 +19,18 @@ function CustomerTicketDetailWrapper({
   ticketId: string;
   onBack: () => void;
 }) {
-  const { data: tickets } = useMyTickets();
-  const ticket = tickets?.find((t) => t.id === ticketId);
+  const { data: myTickets } = useMyTickets();
+  const { data: allTickets } = useAllTickets();
+  const { user } = useAuth();
+
+  const canViewAll =
+    user?.loginId === "master" ||
+    user?.accountType === "master" ||
+    !!user?.permissions?.viewOtherTickets;
+
+  const ticket =
+    myTickets?.find((t) => t.id === ticketId) ??
+    (canViewAll ? allTickets?.find((t) => t.id === ticketId) : undefined);
 
   if (!ticket) {
     return (
@@ -67,12 +78,14 @@ function ProviderTicketDetailWrapper({
   return <TicketDetail ticket={ticket} onBack={onBack} />;
 }
 
-// ── Main App Inner ─────────────────────────────────────────────────────────
+// ── Main App Inner ────────────────────────────────────────────────────────────
 
 function AppInner() {
   const { user, isAuthenticated } = useAuth();
   const [currentPage, setCurrentPage] = useState<string>("");
   const [selectedTicketId, setSelectedTicketId] = useState<string>("");
+
+  const isMasterUser = user?.accountType === "master";
 
   const handleNavigate = (page: string, ticketId?: string) => {
     setCurrentPage(page);
@@ -80,17 +93,16 @@ function AppInner() {
   };
 
   const handleLoginSuccess = () => {
-    if (user?.role === "customer") {
+    if (user?.accountType === "customer") {
       setCurrentPage("my-tickets");
     } else {
       setCurrentPage("dashboard");
     }
   };
 
-  // After login, set default page based on role
   React.useEffect(() => {
     if (isAuthenticated && !currentPage) {
-      if (user?.role === "customer") {
+      if (user?.accountType === "customer") {
         setCurrentPage("my-tickets");
       } else {
         setCurrentPage("dashboard");
@@ -99,14 +111,14 @@ function AppInner() {
     if (!isAuthenticated) {
       setCurrentPage("");
     }
-  }, [isAuthenticated, user?.role, currentPage]);
+  }, [isAuthenticated, user?.accountType, currentPage]);
 
   if (!isAuthenticated) {
     return <LoginPage onLoginSuccess={handleLoginSuccess} />;
   }
 
   const renderPage = () => {
-    if (user?.role === "customer") {
+    if (!isMasterUser) {
       if (currentPage === "raise-ticket") {
         return <RaiseTicket onNavigate={handleNavigate} />;
       }
@@ -120,9 +132,12 @@ function AppInner() {
       }
       return <MyTickets onNavigate={handleNavigate} />;
     }
-    // master role
+    // Master account view
     if (currentPage === "manage-customers") {
       return <ManageCustomers />;
+    }
+    if (currentPage === "manage-roles") {
+      return <ManageRoles />;
     }
     if (currentPage === "ticket-detail") {
       return (
@@ -137,7 +152,7 @@ function AppInner() {
 
   const getActivePage = () => {
     if (currentPage === "ticket-detail") {
-      return user?.role === "customer" ? "my-tickets" : "dashboard";
+      return !isMasterUser ? "my-tickets" : "dashboard";
     }
     return currentPage;
   };

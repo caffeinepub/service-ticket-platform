@@ -106,7 +106,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
     setIsPending(true);
     try {
       const result = validateCredentials(loginId, password);
-      if (!result || result.role !== "customer") {
+      if (!result || result.accountType !== "customer") {
         setCustomerError("Invalid Login ID or Password.");
         setIsPending(false);
         return;
@@ -116,6 +116,8 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
         name: result.name,
         email: result.email,
         role: "customer",
+        accountType: result.accountType,
+        permissions: result.permissions,
       });
       onLoginSuccess();
     } catch {
@@ -133,7 +135,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
     setIsPending(true);
     try {
       const result = validateCredentials(loginId, password);
-      if (!result || result.role !== "master") {
+      if (!result || result.accountType !== "master") {
         setMasterError("Invalid Login ID or Password.");
         setIsPending(false);
         return;
@@ -143,6 +145,8 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
         name: result.name,
         email: result.email,
         role: "master",
+        accountType: result.accountType,
+        permissions: result.permissions,
       });
       onLoginSuccess();
     } catch {
